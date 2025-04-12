@@ -11,3 +11,16 @@ body {
 }
 
 /* Add your own custom styles here */
+
+.form {
+  width: 60%;
+  margin: 10px auto;
+  background-color: mediumaquamarine;
+  padding: 35px 150px 150px 150px;
+  border-radius: 15%;
+}
+.form h1{
+  text-align: center;
+  padding-bottom: 50px;
+  text-shadow: 1px 1px 1px whitesmoke;
+}

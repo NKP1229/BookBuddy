@@ -3,7 +3,7 @@ import bookLogo from './assets/books.png'
 import { Provider } from "react-redux"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import store from "./app/store"
-import Nav from './components/Nav';
+import Navigations from './components/Navigations';
 import Books from "./components/Books";
 import SingleBook from "./components/SingleBook";
 import Login from "./components/Login";
@@ -19,7 +19,7 @@ function App() {
         <h1><img id='logo-image' src={bookLogo}/>Exclusive Library App</h1>
       </header>
       <Router>
-        <Nav />
+        <Navigations />
         <Routes>
           <Route path="/" element={<Books />}></Route>
           <Route path="/books/:id" element={<SingleBook />}></Route>

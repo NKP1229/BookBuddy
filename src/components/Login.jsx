@@ -3,7 +3,7 @@ export default function Login(){
 
     return(
         <div className="form">
-            <h1>Register for free!</h1>
+            <h1>Log In</h1>
             <form>
                 <div className="form-group">
                     <label>Email Address</label>

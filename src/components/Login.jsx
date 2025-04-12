@@ -24,7 +24,7 @@ export default function Login(){
                         name="password"
                     />
                 </div>
-                <button type="submit" className="btn btn-primary">Register</button>
+                <button type="submit" className="btn btn-primary">Log In</button>
             </form>
         </div>
     )

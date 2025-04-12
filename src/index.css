@@ -47,3 +47,13 @@ h2{
   text-align: center;
   padding: 10px;
 }
+.book{
+  margin: 0 auto;
+  width: 50%;
+  
+  img {
+    flex: 1;
+    height: 350px;
+    width: 350px;
+  }
+}

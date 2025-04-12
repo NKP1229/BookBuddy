@@ -1,7 +1,9 @@
 /* TODO - add your code to create a functional React component that renders a login form */
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useLoginAcountMutation } from "./AccountSlice";
 export default function Login(){
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [ logIn ] = useLoginAcountMutation();
@@ -14,7 +16,7 @@ export default function Login(){
             console.log("password: ", password);
             const response = await logIn({email, password});
             console.log(response);
-            // navigate('/account');
+            navigate('/account');
         }
         catch(error){
             console.error(error.message);

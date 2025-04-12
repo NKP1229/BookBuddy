@@ -21,7 +21,7 @@ export default function Register(){
             console.log("password: ", password);
             const response = await addUser({fname, lname, email, password});
             console.log(response);
-            // navigate('/account');
+            navigate('/account');
         }
         catch(error){
             console.error(error.message);

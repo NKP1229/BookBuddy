@@ -15,6 +15,17 @@ const accountApi = api.injectEndpoints({
             }),
             invalidatesTags: ["Users"]
         }),
+        loginAcount: build.mutation({
+            query: ({email, password}) => ({
+                url: "/users/login",
+                method: "POST",
+                body: {
+                    email,
+                    password,
+                }
+            }),
+            invalidatesTags: ["Users"]
+        }),
     })
 });
 //unsure if 'storeToken' & 'addUserSlice' is set up correctly
@@ -34,5 +45,6 @@ const addUserSlice = createSlice({
 export default addUserSlice.reducer;
 
 export const {
-    useAddAcountMutation
+    useAddAcountMutation,
+    useLoginAcountMutation,
 } = accountApi;

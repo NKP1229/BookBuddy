@@ -10,7 +10,6 @@ const api = createApi({
             const token = localStorage.getItem("token");
             if(token){
                 headers.set("Authorization", `Bearer ${token}`)
-                console.log(headers.get("Authorization"));
             }
             return headers;
         }

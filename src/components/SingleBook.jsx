@@ -4,8 +4,6 @@ import { useParams } from "react-router-dom";
 export default function SingleBook(){
     const {id} = useParams();
     const { isLoading, data: book } = useGetBookQuery(id);
-    //const navigate = useNavigate();
-    //console.log("book: ",book);
     let $details;
     if (!id) {
         $details = <p>Please select a book to see more details.</p>;

@@ -12,10 +12,7 @@ export default function Login(){
     async function checkUser(event){
         event.preventDefault();
         try{
-            console.log("email: ", email);
-            console.log("password: ", password);
             const response = await logIn({email, password});
-            console.log(response);
             try{
                 localStorage.setItem("token", response.data.token);
             }

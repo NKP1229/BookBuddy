@@ -15,12 +15,7 @@ export default function Register(){
     async function postUser(event){
         event.preventDefault();
         try{
-            console.log("fname: ", fname);
-            console.log("lname: ", lname);
-            console.log("email: ", email);
-            console.log("password: ", password);
             const response = await addUser({fname, lname, email, password});
-            console.log(response);
             try{
                 localStorage.setItem("token", response.data.token);
             }

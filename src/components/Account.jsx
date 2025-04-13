@@ -3,25 +3,67 @@ import React, { useEffect, useState } from "react"
 const Account = () => {
     const [user,setUser] = useState(null);
     const [books, setBooks] = useState([]);
-
     useEffect(() => {
-        fetch("https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/me")
-          .then((response) => response.json())
-          .then((data) => setUser(data));
-        fetch("https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/me/books")
-          .then((response) => response.json())
+        fetch("https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/users/me", {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Unauthorized or error fetching user details");
+            }
+            return response.json();
+          })
+          .then((data) => setUser(data))
+          .catch((error) => console.error("Error:", error));
+
+        fetch("https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/reservations", {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Unauthorized or error fetching reservation details");
+            }
+            return response.json();
+          })
           .then((data) => setBooks(data))
+          .catch((error) => console.error("Error:", error));
+
     }, [])
     if(!user){
-        return <div>Please log in to view your account</div>
+        return (
+            <>
+                <div>Please log in to view your account</div>
+            </>
+        )
     }
     return(
-        <div>
-            <h2>Account Details:</h2>
-            <p>First Name: {user.firstname}</p>
-            <p>Last Name: {user.lastname}</p>
-            <p>Email: {user.email}</p>
-            <p>Id: {user.id}</p>
+        <div className="accountDetails">
+            <div>
+                <h2>Account Details:</h2>
+            </div>
+            <div>
+                <p>First Name: {user.firstname}</p>
+                <p>Last Name: {user.lastname}</p>
+                <p>Email: {user.email}</p>
+                <p>Id: {user.id}</p>
+            </div>
+            <div>
+                <h2>Checked-out Books</h2>
+                {books.length === 0 ? 
+                    (<p>You have no checked-out books</p>) : 
+                    (<ul>
+                        {books.map((book) => (
+                            <li key={book.id}> {book.title} </li>
+                        ))}
+                    </ul>)
+                }
+            </div>
         </div>
     )
 }

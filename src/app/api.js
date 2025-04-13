@@ -6,8 +6,16 @@ const api = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
         baseUrl: API_URL,
+        prepareHeaders: (headers) => {
+            const token = localStorage.getItem("token");
+            if(token){
+                headers.set("Authorization", `Bearer ${token}`)
+                console.log(headers.get("Authorization"));
+            }
+            return headers;
+        }
     }),
-    tagTypes: ['Books','Users'],
+    tagTypes: ["Books","Users"],
     endpoints: () => ({}),
 });
 

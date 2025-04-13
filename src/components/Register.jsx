@@ -1,7 +1,7 @@
 /* TODO - add your code to create a functional React component that renders a registration form */
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAddAcountMutation } from "./AccountSlice";
+import { useAddAccountMutation } from "./AccountSlice";
 
 export default function Register(){
     const navigate = useNavigate();
@@ -9,8 +9,8 @@ export default function Register(){
     const [lname, setLname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [ addUser ] = useAddAcountMutation();
-    const { isLoading, error} = useAddAcountMutation();
+    const [ addUser ] = useAddAccountMutation();
+    const { isLoading, error} = useAddAccountMutation();
 
     async function postUser(event){
         event.preventDefault();
@@ -21,6 +21,12 @@ export default function Register(){
             console.log("password: ", password);
             const response = await addUser({fname, lname, email, password});
             console.log(response);
+            try{
+                localStorage.setItem("token", response.data.token);
+            }
+            catch(error){
+                console.error(error.message)
+            }
             navigate('/account');
         }
         catch(error){

@@ -1,13 +1,13 @@
 /* TODO - add your code to create a functional React component that renders a login form */
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLoginAcountMutation } from "./AccountSlice";
+import { useLoginAccountMutation } from "./AccountSlice";
 export default function Login(){
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [ logIn ] = useLoginAcountMutation();
-    const { isLoading, error} = useLoginAcountMutation();
+    const [ logIn ] = useLoginAccountMutation();
+    const { isLoading, error} = useLoginAccountMutation();
     
     async function checkUser(event){
         event.preventDefault();
@@ -16,13 +16,18 @@ export default function Login(){
             console.log("password: ", password);
             const response = await logIn({email, password});
             console.log(response);
+            try{
+                localStorage.setItem("token", response.data.token);
+            }
+            catch(error){
+                console.error(error.message)
+            }
             navigate('/account');
         }
         catch(error){
             console.error(error.message);
         }
     }
-
     return(
         <div className="form">
             <h1>Log In</h1>

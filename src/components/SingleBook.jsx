@@ -37,9 +37,7 @@ export default function SingleBook(){
       const token = localStorage.getItem("token");
       if(token){
         try{
-          console.log("bookId:", id);
           const response = await reserveBook({bookId: id});
-          console.log(response);
         }
         catch{
           console.error(error.message);

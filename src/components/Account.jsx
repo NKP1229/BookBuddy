@@ -46,12 +46,10 @@ const Account = () => {
     }
     async function returnBook(ID){
         try{
-            console.log(ID);
-            const response = await returnABook({id: ID});
-            console.log(response);
+            const response = await returnABook(ID);
         }
         catch(error){
-            console.error(error.message)
+            console.error(error.message);
         }
     }
     return(

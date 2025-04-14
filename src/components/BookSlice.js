@@ -18,13 +18,13 @@ const bookApi = api.injectEndpoints({
         providesTags: ["Books"],
       }),
       returnBooks: build.mutation({
-        query: (Id) => ({
-            url: `/reservations/${Id}`,
+        query: (id) => ({
+            url: `/reservations/${id}`,
             method: "DELETE",
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`
             },
-            body: {Id},
+            body: {id},
         }),
         invalidatesTags: ["Books"],
       }),

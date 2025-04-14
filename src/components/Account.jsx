@@ -1,8 +1,10 @@
 /* TODO - add your code to create a functional React component that renders account details for a logged in user. Fetch the account data from the provided API. You may consider conditionally rendering a message for other users that prompts them to log in or create an account.  */
 import React, { useEffect, useState } from "react"
+import { useReturnBooksMutation } from "./BookSlice";
 const Account = () => {
     const [user,setUser] = useState(null);
     const [books, setBooks] = useState([]);
+    const [returnABook] = useReturnBooksMutation();
     useEffect(() => {
         fetch("https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/users/me", {
             method: 'GET',
@@ -42,6 +44,16 @@ const Account = () => {
             </>
         )
     }
+    async function returnBook(ID){
+        try{
+            console.log(ID);
+            const response = await returnABook({id: ID});
+            console.log(response);
+        }
+        catch(error){
+            console.error(error.message)
+        }
+    }
     return(
         <div className="accountDetails">
             <div>
@@ -59,7 +71,7 @@ const Account = () => {
                     (<p>You have no checked-out books</p>) : 
                     (<ul>
                         {books.map((book) => (
-                            <li key={book.id}> {book.title} </li>
+                            <li key={book.id}> {book.title} <button className="btn btn-secondary" onClick={() => returnBook(book.id)}>Return</button></li>
                         ))}
                     </ul>)
                 }

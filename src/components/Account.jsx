@@ -21,7 +21,7 @@ const Account = () => {
           .then((data) => setBooks(data))
           .catch((error) => console.error("Error:", error));
     }
-    useEffect(() => {
+    function getUser(){
         fetch("https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/users/me", {
             method: 'GET',
             headers: {
@@ -36,8 +36,13 @@ const Account = () => {
           })
           .then((data) => setUser(data))
           .catch((error) => console.error("Error:", error));
-        
-        getList();
+    }
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if(token){
+            getUser();
+            getList();
+        }
     }, [])
     if(!user){
         return (

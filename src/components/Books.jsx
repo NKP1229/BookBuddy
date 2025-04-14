@@ -8,7 +8,6 @@ export default function Books(){
     const [books, setListOfBooks] = useState([]);
     const [searched, setSearched] = useState('');
     const availBooks = books.filter(p => p.available);
-
     const handleChange = (e) => {
         setSearched(e.target.value);
     };

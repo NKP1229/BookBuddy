@@ -13,6 +13,9 @@ export default function SingleBook(){
     else if (isLoading) {
         $details = <p>Loading book information...</p>;
     }
+    else if(!book.available){
+      $details = <p>Book is not available</p>
+    }
     else {
         $details = (
           <div className="book">

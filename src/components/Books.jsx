@@ -7,17 +7,19 @@ export default function Books(){
     const { status, isLoading, data: bookList } = useGetBooksQuery();
     const [books, setListOfBooks] = useState([]);
     const [searched, setSearched] = useState('');
+    const availBooks = books.filter(p => p.available);
     const handleChange = (e) => {
         setSearched(e.target.value);
     };
-    const searchedBooks = books.filter(book =>
+    const searchedBooks = availBooks.filter(book =>
         book.title.toLowerCase().startsWith(searched.toLowerCase())
     );
     useEffect(() => {
         if (status === "fulfilled") {
           setListOfBooks(bookList);
         }
-    }, [status]);
+      }, [status]);
+      
     return(
         <>
             <div className="container">
@@ -41,16 +43,16 @@ export default function Books(){
                 <ul className="myBooks">
                     {isLoading && <li>Loading books...</li>}
                     {searchedBooks.map((p) => (
-                    <li key={p.id}>
-                        <Link to={`/books/${p.id}`}>
-                            <h4>
-                                {p.title} #{p.id}
-                            </h4>
-                        </Link>
-                        <figure>
-                            <img src={p.coverimage} alt={p.title} />
-                        </figure>
-                    </li>
+                        <li key={p.id}>
+                            <Link to={`/books/${p.id}`}>
+                                <h4>
+                                    {p.title} #{p.id}
+                                </h4>
+                            </Link>
+                            <figure>
+                                <img src={p.coverimage} alt={p.title} />
+                            </figure>
+                        </li>
                     ))}
                 </ul>
             </article>

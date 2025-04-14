@@ -2,10 +2,12 @@
 import { useGetBookQuery } from "./BookSlice"
 import { useParams } from "react-router-dom";
 import { useReserveBookMutation } from "./BookSlice";
+import { useNavigate } from "react-router-dom";
 export default function SingleBook(){
     const {id} = useParams();
     const { isLoading, data: book } = useGetBookQuery(id);
     const [ reserveBook ] = useReserveBookMutation();
+    const navigate = useNavigate();
     let $details;
     if (!id) {
         $details = <p>Please select a book to see more details.</p>;
@@ -38,6 +40,7 @@ export default function SingleBook(){
       if(token){
         try{
           const response = await reserveBook({bookId: id});
+          navigate('/account');
         }
         catch{
           console.error(error.message);

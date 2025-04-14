@@ -5,6 +5,22 @@ const Account = () => {
     const [user,setUser] = useState(null);
     const [books, setBooks] = useState([]);
     const [returnABook] = useReturnBooksMutation();
+    function getList(){
+        fetch("https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/reservations", {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Unauthorized or error fetching reservation details");
+            }
+            return response.json();
+          })
+          .then((data) => setBooks(data))
+          .catch((error) => console.error("Error:", error));
+    }
     useEffect(() => {
         fetch("https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/users/me", {
             method: 'GET',
@@ -20,22 +36,8 @@ const Account = () => {
           })
           .then((data) => setUser(data))
           .catch((error) => console.error("Error:", error));
-
-        fetch("https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/reservations", {
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`
-            }
-        })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Unauthorized or error fetching reservation details");
-            }
-            return response.json();
-          })
-          .then((data) => setBooks(data))
-          .catch((error) => console.error("Error:", error));
-
+        
+        getList();
     }, [])
     if(!user){
         return (
@@ -47,6 +49,7 @@ const Account = () => {
     async function returnBook(ID){
         try{
             const response = await returnABook(ID);
+            getList();
         }
         catch(error){
             console.error(error.message);

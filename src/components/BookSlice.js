@@ -17,21 +17,29 @@ const bookApi = api.injectEndpoints({
         }),
         providesTags: ["Books"],
       }),
-      deleteBooks: build.mutation({
+      returnBooks: build.mutation({
         query: (bookId) => ({
-            url: `/books/${bookId}`,
+            url: `/reservations/${bookId}`,
             method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            body: {bookId},
         }),
         invalidatesTags: ["Books"],
       }),
-      addBook: build.mutation({
-        query: (bookId) => ({
-          url: `/books/${bookId}`,
+      reserveBook: build.mutation({
+        query: ({bookId}) => ({
+          url: `/reservations`,
           method: "POST",
-          body: {title, author, description }
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          },
+          body: {bookId},
         }),
         invalidatesTags: ["Books"],
-    })
+      })
     })
 });
 
@@ -52,7 +60,7 @@ export default bookSlice.reducer;
 export const {
     useGetBookQuery,
     useGetBooksQuery,
-    useAddBookMutation,
-   useDeleteBookMutation,
+    useReserveBookMutation,
+    useReturnBooksMutation,
 } = bookApi;
 

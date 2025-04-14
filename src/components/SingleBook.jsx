@@ -1,9 +1,11 @@
 /* TODO - add your code to create a functional React component that renders details for a single book. Fetch the book data from the provided API. You may consider conditionally rendering a 'Checkout' button for logged in users. */
 import { useGetBookQuery } from "./BookSlice"
 import { useParams } from "react-router-dom";
+import { useReserveBookMutation } from "./BookSlice";
 export default function SingleBook(){
     const {id} = useParams();
     const { isLoading, data: book } = useGetBookQuery(id);
+    const [ reserveBook ] = useReserveBookMutation();
     let $details;
     if (!id) {
         $details = <p>Please select a book to see more details.</p>;
@@ -24,8 +26,22 @@ export default function SingleBook(){
             </figure>
             <h5>Description: </h5>
             <h6>{book.description}</h6>
+            <button className="btn btn-secondary" onClick={() => checkoutBook()}>Checkout</button>
           </div>
         )
+    }
+    async function checkoutBook(){
+      const token = localStorage.getItem("token");
+      if(token){
+        try{
+          console.log("bookId:", id);
+          const response = await reserveBook({bookId: id});
+          console.log(response);
+        }
+        catch{
+          console.error(error.message);
+        }
+      }
     }
     return (
         <aside>

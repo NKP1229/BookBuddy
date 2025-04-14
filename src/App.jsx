@@ -10,6 +10,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Account from "./components/Account";
 
+
 function App() {
   const [token, setToken] = useState(null)
 
@@ -27,7 +28,6 @@ function App() {
           <Route path="/register" element={<Register />}></Route>
           <Route path="/account" element={<Account />}></Route>
         </Routes>
-
       </Router>
     </Provider>
   )

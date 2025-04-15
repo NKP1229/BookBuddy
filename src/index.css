@@ -1,8 +1,10 @@
 body {
   font-family: Georgia, serif;
-  background-color: #f8f8f8;
+  background: linear-gradient(135deg,  rgb(119, 119, 255), rgb(249, 194, 90));
   margin: 0;
   padding: 0;
+  min-height: 100vh;
+
 }
 #logo-image {
   width: 30px;
@@ -13,27 +15,42 @@ body {
 
 .form {
   width: 60%;
-  margin: 10px auto;
-  background-color: mediumaquamarine;
-  padding: 35px 150px 150px 150px;
+  max-width: 600px;
+  color: snow;
+  text-shadow: 1px 1px 1px rgb(161, 110, 59);
+  margin: 50px auto;
+  background-color: rgba(147, 231, 203, 0.3);
+  padding: 35px 6% 150px 6%;
   border-radius: 15%;
+  border: 1px solid rgb(218, 218, 218);
+
+  button {
+    margin-top: 20px;
+  }
 }
 .form h1{
   text-align: center;
   padding-bottom: 50px;
-  text-shadow: 1px 1px 1px whitesmoke;
+  
 }
 .myBooks {
   list-style: none;
   display: -ms-inline-grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 0.5rem;
+  margin: 0 auto;
   
   li {
     display: inline-block;
     flex-flow:column;
+    text-align: center;
+    max-width: 450px;
     gap: 1ch;
-    padding: 7px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    background-color: rgba(245, 245, 220, 0.2);
+    border: 1px solid rgb(218, 218, 218);
     
     figure img {
       flex: 1;
@@ -65,4 +82,11 @@ h2{
   padding: 7px;
   margin: 10px;
   border-radius: 3px;
+}
+.search-container{
+  padding-top: 10px;
+}
+.title{
+  color: snow;
+  text-shadow: 1px 1px 1px rgb(185, 120, 0);
 }

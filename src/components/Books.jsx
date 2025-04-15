@@ -39,13 +39,13 @@ export default function Books(){
                 </div>
             </div>
             <article>
-                <h2>Available books...</h2>
+                <h2 className="title">Available books...</h2>
                 <ul className="myBooks">
                     {isLoading && <li>Loading books...</li>}
                     {searchedBooks.map((p) => (
                         <li key={p.id}>
                             <Link to={`/books/${p.id}`}>
-                                <h4>
+                                <h4 className="title">
                                     {p.title} #{p.id}
                                 </h4>
                             </Link>

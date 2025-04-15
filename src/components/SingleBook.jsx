@@ -52,7 +52,7 @@ export default function SingleBook(){
     }
     return (
         <aside>
-          <h2>Selected Book</h2>
+          <h2 className="title">Selected Book</h2>
           {$details}
         </aside>
       );

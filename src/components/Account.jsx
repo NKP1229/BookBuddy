@@ -67,7 +67,7 @@ const Account = () => {
         navigate('/');
     }
     return(
-        <div>
+        <div className="page">
             <div>
                 <button className="LogOut" onClick={() => logOut()}>Log Out</button>
             </div>
@@ -85,7 +85,7 @@ const Account = () => {
                     <h2>Checked-out Books</h2>
                     {books.length === 0 ? 
                         (<p>You have no checked-out books</p>) : 
-                        (<ul>
+                        (<ul className="checkedOutBooks">
                             {books.map((book) => (
                                 <li key={book.id}> {book.title} <button className="btn btn-secondary" onClick={() => returnBook(book.id)}>Return</button></li>
                             ))}

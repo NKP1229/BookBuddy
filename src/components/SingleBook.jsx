@@ -46,6 +46,9 @@ export default function SingleBook(){
           console.error(error.message);
         }
       }
+      else{
+        alert("You must be logged in to check out a book.")
+      }
     }
     return (
         <aside>

@@ -58,4 +58,11 @@ h2{
 }
 .accountDetails {
   text-align: center;
+  padding-top: 30px;
+}
+.LogOut{
+  float: right;
+  padding: 7px;
+  margin: 10px;
+  border-radius: 3px;
 }

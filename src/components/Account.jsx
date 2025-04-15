@@ -43,7 +43,7 @@ const Account = () => {
             
             getList();
         }
-    }, [status1])
+    }, [Account])
     if(!user){
         return (
             <>

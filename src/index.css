@@ -9,6 +9,7 @@ body {
 #logo-image {
   width: 30px;
   margin-right: 10px;
+  margin-left: 15px;
 }
 
 /* Add your own custom styles here */
@@ -20,7 +21,7 @@ body {
   text-shadow: 1px 1px 1px rgb(161, 110, 59);
   margin: 50px auto;
   background-color: rgba(147, 231, 203, 0.3);
-  padding: 35px 6% 150px 6%;
+  padding: 35px 6% 100px 6%;
   border-radius: 15%;
   border: 1px solid rgb(218, 218, 218);
 
@@ -32,6 +33,9 @@ body {
   text-align: center;
   padding-bottom: 50px;
   
+}
+.form-group{
+  margin-top: 15px;
 }
 .myBooks {
   list-style: none;
@@ -87,6 +91,8 @@ h2{
 }
 .accountDetails {
   text-align: center;
+  color: snow;
+  text-shadow: 1px 1px 1px rgb(161, 110, 59);
   padding-top: 30px;
   padding-bottom: 30px;
   width: 60%;
@@ -103,6 +109,9 @@ h2{
   padding: 7px;
   margin: 10px;
   border-radius: 3px;
+}
+.LogOut:hover{
+  background-color: rgb(224, 223, 223);
 }
 .search-container{
   padding-top: 10px;

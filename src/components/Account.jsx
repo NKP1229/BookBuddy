@@ -8,11 +8,11 @@ const Account = () => {
     const [user,setUser] = useState(null);
     const [books, setBooks] = useState([]);
     const { status: status1, data: Account} = useGetAccountDetailsQuery();
-    const { status: status2, data: reservedBooks, refetch: refresh2 } = useGetReservationsQuery();
+    const { status: status2, data: reservedBooks, refetch } = useGetReservationsQuery();
     const [returnABook] = useReturnBooksMutation();
     const navigate = useNavigate();
     async function REfetch(){
-        await refresh2();
+        await refetch();
     }
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -38,49 +38,6 @@ const Account = () => {
             }
         }
     }, [status2, reservedBooks]);
-
-    // async function getList(){
-    //     // fetch("https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/reservations", {
-    //     //     method: 'GET',
-    //     //     headers: {
-    //     //         Authorization: `Bearer ${localStorage.getItem("token")}`
-    //     //     }
-    //     // })
-    //     //   .then((response) => {
-    //     //     if (!response.ok) {
-    //     //       throw new Error("Unauthorized or error fetching reservation details");
-    //     //     }
-    //     //     return response.json();
-    //     //   })
-    //     //   .then((data) => setBooks(data))
-    //     //   .catch((error) => console.error("Error:", error));
-    //     try{
-    //         if(status2 === "fulfilled"){
-    //             setBooks(reservedBooks);
-    //         }
-    //     }
-    //     catch(error){
-    //         console.error(error.message);
-    //     }
-    // }
-    // function getUser(){
-    //     try{
-    //         if(status1 === "fulfilled"){
-    //             setUser(Account);
-    //         };
-    //     }
-    //     catch(error){
-    //         console.error(error.message);
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     const token = localStorage.getItem("token");
-    //     if(token){
-    //         getUser();
-    //         getList();
-    //     }
-    // }, [Account, reservedBooks])
     if(user === null){
         return (
             <>
@@ -93,7 +50,7 @@ const Account = () => {
             const updatedBooks = books.filter(book => book.id !== ID);
             setBooks(updatedBooks);
             await returnABook(ID).unwrap(); 
-            await REfetch();
+            REfetch();
         }
         catch(error){
             console.error(error.message);

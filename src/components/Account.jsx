@@ -11,7 +11,15 @@ const Account = () => {
     const { status: status2, data: reservedBooks, refetch } = useGetReservationsQuery();
     const [returnABook] = useReturnBooksMutation();
     const navigate = useNavigate();
-    
+    async function REfetch(){
+        await refetch();
+    }
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if(token){
+            REfetch();
+        }
+    }, [])
     useEffect(() => {
         if (status1 === "fulfilled") {
             setUser(Account);

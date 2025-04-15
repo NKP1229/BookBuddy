@@ -18,11 +18,11 @@ export default function Register(){
             const response = await addUser({fname, lname, email, password});
             try{
                 localStorage.setItem("token", response.data.token);
+                navigate('/account');
             }
             catch(error){
                 console.error(error.message)
             }
-            navigate('/account');
         }
         catch(error){
             console.error(error.message);

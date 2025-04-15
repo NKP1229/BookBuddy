@@ -12,7 +12,7 @@ const accountApi = api.injectEndpoints({
                     password,
                 }
             }),
-            invalidatesTags: ["Users"]
+            invalidatesTags: ["Users"],
         }),
         loginAccount: build.mutation({
             query: ({email, password}) => ({
@@ -23,7 +23,27 @@ const accountApi = api.injectEndpoints({
                     password,
                 }
             }),
-            invalidatesTags: ["Users"]
+            invalidatesTags: ["Users"],
+        }),
+        getAccountDetails: build.query({
+            query: () => ({
+                url: "/users/me",
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                },
+            }),
+            providesTags: ["Users"],
+        }),
+        getReservations: build.query({
+            query: () => ({
+                url: "/reservations",
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                },
+            }),
+            providesTags: ["Users"],
         }),
     })
 });
@@ -31,4 +51,6 @@ const accountApi = api.injectEndpoints({
 export const {
     useAddAccountMutation,
     useLoginAccountMutation,
+    useGetAccountDetailsQuery,
+    useGetReservationsQuery,
 } = accountApi;

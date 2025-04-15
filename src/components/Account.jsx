@@ -1,10 +1,12 @@
 /* TODO - add your code to create a functional React component that renders account details for a logged in user. Fetch the account data from the provided API. You may consider conditionally rendering a message for other users that prompts them to log in or create an account.  */
 import React, { useEffect, useState } from "react";
 import { useReturnBooksMutation } from "./BookSlice";
+import { useGetAccountDetailsQuery } from "./AccountSlice";
 import { useNavigate } from "react-router-dom";
 const Account = () => {
     const [user,setUser] = useState(null);
     const [books, setBooks] = useState([]);
+    const { status: status1, data: Account } = useGetAccountDetailsQuery();
     const [returnABook] = useReturnBooksMutation();
     const navigate = useNavigate();
     function getList(){
@@ -24,28 +26,24 @@ const Account = () => {
           .catch((error) => console.error("Error:", error));
     }
     function getUser(){
-        fetch("https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/users/me", {
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`
-            }
-        })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Unauthorized or error fetching user details");
-            }
-            return response.json();
-          })
-          .then((data) => setUser(data))
-          .catch((error) => console.error("Error:", error));
+        try{
+            if(status1 === "fulfilled"){
+                setUser(Account);
+            };
+        }
+        catch(error){
+            console.error(error.message);
+        }
     }
+
     useEffect(() => {
         const token = localStorage.getItem("token");
         if(token){
             getUser();
+            
             getList();
         }
-    }, [])
+    }, [status1])
     if(!user){
         return (
             <>
@@ -55,7 +53,7 @@ const Account = () => {
     }
     async function returnBook(ID){
         try{
-            const response = await returnABook(ID);
+            await returnABook(ID).unwrap();  
             getList();
         }
         catch(error){

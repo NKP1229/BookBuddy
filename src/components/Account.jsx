@@ -7,12 +7,12 @@ import { useNavigate } from "react-router-dom";
 const Account = () => {
     const [user,setUser] = useState(null);
     const [books, setBooks] = useState([]);
-    const { status: status1, data: Account } = useGetAccountDetailsQuery();
-    const { status: status2, data: reservedBooks, refetch } = useGetReservationsQuery();
+    const { status: status1, data: Account} = useGetAccountDetailsQuery();
+    const { status: status2, data: reservedBooks, refetch: refresh2 } = useGetReservationsQuery();
     const [returnABook] = useReturnBooksMutation();
     const navigate = useNavigate();
     async function REfetch(){
-        await refetch();
+        await refresh2();
     }
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -21,15 +21,21 @@ const Account = () => {
         }
     }, [])
     useEffect(() => {
-        if (status1 === "fulfilled") {
-            setUser(Account);
+        const token = localStorage.getItem("token");
+        if(token){
+            if (status1 === "fulfilled") {
+                setUser(Account);
+            }
         }
     }, [status1, Account]);
 
     useEffect(() => {
         // Update the books list when the reservation data is fetched
-        if (status2 === "fulfilled") {
-            setBooks(reservedBooks);
+        const token = localStorage.getItem("token");
+        if(token){
+            if (status2 === "fulfilled") {
+                setBooks(reservedBooks);
+            }
         }
     }, [status2, reservedBooks]);
 
@@ -75,7 +81,7 @@ const Account = () => {
     //         getList();
     //     }
     // }, [Account, reservedBooks])
-    if(!user){
+    if(user === null){
         return (
             <>
                 <div>Please log in to view your account</div>
@@ -87,7 +93,7 @@ const Account = () => {
             const updatedBooks = books.filter(book => book.id !== ID);
             setBooks(updatedBooks);
             await returnABook(ID).unwrap(); 
-            await refetch();
+            await REfetch();
         }
         catch(error){
             console.error(error.message);
@@ -95,6 +101,7 @@ const Account = () => {
     }
     function logOut(){
         localStorage.removeItem("token");
+        setUser(null);
         navigate('/');
     }
     return(
@@ -107,10 +114,10 @@ const Account = () => {
                     <h2>Account Details:</h2>
                 </div>
                 <div>
-                    <p>First Name: {user.firstname}</p>
-                    <p>Last Name: {user.lastname}</p>
-                    <p>Email: {user.email}</p>
-                    <p>Id: {user.id}</p>
+                    <p>First Name: {Account.firstname}</p>
+                    <p>Last Name: {Account.lastname}</p>
+                    <p>Email: {Account.email}</p>
+                    <p>Id: {Account.id}</p>
                 </div>
                 <div>
                     <h2>Checked-out Books</h2>

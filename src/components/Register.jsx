@@ -5,8 +5,8 @@ import { useAddAccountMutation } from "./AccountSlice";
 
 export default function Register(){
     const navigate = useNavigate();
-    const [fname, setFname] = useState("");
-    const [lname, setLname] = useState("");
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [ addUser ] = useAddAccountMutation();
@@ -15,7 +15,7 @@ export default function Register(){
     async function postUser(event){
         event.preventDefault();
         try{
-            const response = await addUser({fname, lname, email, password});
+            const response = await addUser({firstname, lastname, email, password});
             try{
                 localStorage.setItem("token", response.data.token);
                 navigate('/account');
@@ -42,7 +42,7 @@ export default function Register(){
                                 className="form-control" 
                                 placeholder="First name"
                                 name="firstname"
-                                onChange={(e) => setFname(e.target.value)}
+                                onChange={(e) => setFirstname(e.target.value)}
                             />
                         </div>
                         <div className="col">
@@ -52,7 +52,7 @@ export default function Register(){
                                 className="form-control" 
                                 placeholder="Last name"
                                 name="lastname"
-                                onChange={(e) => setLname(e.target.value)}
+                                onChange={(e) => setLastname(e.target.value)}
                             />
                         </div>
                     </div>
